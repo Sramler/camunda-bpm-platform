@@ -1,6 +1,9 @@
 name: Publish Camunda fork to GitHub Packages
 
 on:
+  push:
+    branches:
+      - codex/camunda7-sb4-fork
   workflow_dispatch:
 
 permissions:
