@@ -54,6 +54,16 @@ Out of the box, Camunda Platform 7 provides infrastructure-level integration wit
 
 Most of the components that make up the platform can even be completely embedded inside an application. For instance, you can add the process engine and the REST API as a library to your application and assemble your custom BPM platform configuration.
 
+## Local Strategy Docs
+
+This fork contains local architecture notes for the Spring Boot 4 transition work.
+These documents describe fork-specific decisions and should not be read as upstream
+Camunda product guidance.
+
+- [Engine Only Usage Strategy](docs/camunda-7-spring-boot-4-engine-only-strategy.md)
+- [ADR-0001: Engine Only Strategy on Spring Boot 4](docs/adr/0001-camunda-7-spring-boot-4-engine-only.md)
+- [GitHub Packages Publishing for the SB4 Fork](docs/github-packages-publishing.md)
+
 ## Contributing
 
 Please see our [contribution guidelines](CONTRIBUTING.md) for how to raise issues and how to contribute code to our project.

@@ -16,10 +16,10 @@
  */
 package org.camunda.bpm.engine.impl.el;
 
-import org.camunda.bpm.impl.juel.jakarta.el.ELContext;
-import org.camunda.bpm.impl.juel.jakarta.el.ELResolver;
-import org.camunda.bpm.impl.juel.jakarta.el.FunctionMapper;
-import org.camunda.bpm.impl.juel.jakarta.el.VariableMapper;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
+import jakarta.el.FunctionMapper;
+import jakarta.el.VariableMapper;
 
 
 /**

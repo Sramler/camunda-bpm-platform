@@ -18,11 +18,11 @@ package org.camunda.bpm.dmn.feel.impl.juel.el;
 
 import java.lang.reflect.Method;
 
-import org.camunda.bpm.impl.juel.jakarta.el.ELContext;
-import org.camunda.bpm.impl.juel.jakarta.el.ELResolver;
-import org.camunda.bpm.impl.juel.jakarta.el.ExpressionFactory;
-import org.camunda.bpm.impl.juel.jakarta.el.FunctionMapper;
-import org.camunda.bpm.impl.juel.jakarta.el.VariableMapper;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
+import jakarta.el.ExpressionFactory;
+import jakarta.el.FunctionMapper;
+import jakarta.el.VariableMapper;
 
 import org.camunda.bpm.dmn.feel.impl.juel.FeelEngineLogger;
 import org.camunda.bpm.dmn.feel.impl.juel.FeelLogger;

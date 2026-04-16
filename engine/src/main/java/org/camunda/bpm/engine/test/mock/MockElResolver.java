@@ -19,8 +19,8 @@ package org.camunda.bpm.engine.test.mock;
 import java.beans.FeatureDescriptor;
 import java.util.Iterator;
 
-import org.camunda.bpm.impl.juel.jakarta.el.ELContext;
-import org.camunda.bpm.impl.juel.jakarta.el.ELResolver;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
 
 public class MockElResolver extends ELResolver {
 

@@ -1,0 +1,51 @@
+/*
+ * Copyright Camunda Services GmbH and/or licensed to Camunda Services GmbH
+ * under one or more contributor license agreements. See the NOTICE file
+ * distributed with this work for additional information regarding copyright
+ * ownership. Camunda licenses this file to you under the Apache License,
+ * Version 2.0; you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.camunda.bpm.spring.boot.starter.security.oauth2.impl;
+
+import org.springframework.boot.autoconfigure.condition.ConditionMessage;
+import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
+import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
+import org.springframework.boot.context.properties.bind.Bindable;
+import org.springframework.boot.context.properties.bind.Binder;
+import org.springframework.context.annotation.ConditionContext;
+import org.springframework.core.type.AnnotatedTypeMetadata;
+
+import java.util.Collections;
+import java.util.Map;
+
+/**
+ * Boot 4 no longer ships the old ClientsConfiguredCondition. We only need a
+ * minimal equivalent to determine whether OAuth2 client registrations exist.
+ */
+public class ClientsConfiguredCondition extends SpringBootCondition {
+
+  private static final String REGISTRATION_PREFIX = "spring.security.oauth2.client.registration";
+
+  @Override
+  public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
+    Map<String, Object> registrations = Binder.get(context.getEnvironment())
+      .bind(REGISTRATION_PREFIX, Bindable.mapOf(String.class, Object.class))
+      .orElse(Collections.emptyMap());
+
+    ConditionMessage.Builder message = ConditionMessage.forCondition("OAuth2 Clients");
+    if (!registrations.isEmpty()) {
+      return ConditionOutcome.match(message.found("client registrations").items(registrations.keySet()));
+    }
+
+    return ConditionOutcome.noMatch(message.didNotFind("client registrations").atAll());
+  }
+}

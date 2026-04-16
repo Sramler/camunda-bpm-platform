@@ -16,8 +16,8 @@
  */
 package org.camunda.bpm.dmn.engine.impl.el;
 
-import org.camunda.bpm.impl.juel.jakarta.el.ELContext;
-import org.camunda.bpm.impl.juel.jakarta.el.ELResolver;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
 
 import org.camunda.bpm.engine.variable.context.VariableContext;
 

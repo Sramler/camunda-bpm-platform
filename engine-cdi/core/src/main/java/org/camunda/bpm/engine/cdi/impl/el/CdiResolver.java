@@ -21,8 +21,8 @@ import java.util.Iterator;
 import javax.enterprise.inject.spi.BeanManager;
 import org.camunda.bpm.engine.cdi.impl.util.BeanManagerLookup;
 import org.camunda.bpm.engine.cdi.impl.util.ProgrammaticBeanLookup;
-import org.camunda.bpm.impl.juel.jakarta.el.ELContext;
-import org.camunda.bpm.impl.juel.jakarta.el.ELResolver;
+import jakarta.el.ELContext;
+import jakarta.el.ELResolver;
 
 
 /**
