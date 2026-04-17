@@ -129,6 +129,7 @@
             </goals>
             <configuration>
               <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
+              <createSourcesJar>false</createSourcesJar>
               <artifactSet>
                 <includes>
                   <include>com.sun.activation:javax.activation</include>
@@ -144,6 +145,15 @@
                   <shadedPattern>camundajar.javax.activation</shadedPattern>
                 </relocation>
               </relocations>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/MANIFEST.MF</exclude>
+                    <exclude>module-info.class</exclude>
+                  </excludes>
+                </filter>
+              </filters>
             </configuration>
           </execution>
         </executions>

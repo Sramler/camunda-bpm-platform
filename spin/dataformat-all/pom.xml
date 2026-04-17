@@ -51,7 +51,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
-        <version>3.5.0</version>
         <executions>
           <execution>
             <phase>package</phase>
@@ -60,19 +59,24 @@
             </goals>
             <configuration>
               <createDependencyReducedPom>true</createDependencyReducedPom>
-              <createSourcesJar>true</createSourcesJar>
+              <createSourcesJar>false</createSourcesJar>
               <promoteTransitiveDependencies>true</promoteTransitiveDependencies>
               <artifactSet>
                 <excludes>
                   <exclude>org.camunda.commons:*</exclude>
                   <exclude>org.camunda.spin:camunda-spin-core</exclude>
                   <exclude>org.slf4j:*</exclude>
+                  <exclude>jakarta.activation:jakarta.activation-api</exclude>
                 </excludes>
               </artifactSet>
               <relocations>
                 <relocation>
                   <pattern>com.fasterxml</pattern>
                   <shadedPattern>spinjar.com.fasterxml</shadedPattern>
+                </relocation>
+                <relocation>
+                  <pattern>tools.jackson</pattern>
+                  <shadedPattern>spinjar.tools.jackson</shadedPattern>
                 </relocation>
                 <relocation>
                   <pattern>com.jayway</pattern>
@@ -125,6 +129,9 @@
                 <filter>
                   <artifact>*:*</artifact>
                   <excludes>
+                    <exclude>META-INF/MANIFEST.MF</exclude>
+                    <exclude>META-INF/LICENSE</exclude>
+                    <exclude>META-INF/LICENSE.md</exclude>
                     <exclude>module-info.class</exclude>
                   </excludes>
                 </filter>
@@ -164,6 +171,7 @@
               !org.junit*,
               !org.slf4j.impl,
               !com.fasterxml*,
+              !tools.jackson*,
               !com.jayway,
               !net.minidev.json*,
               !org.codehaus.jackson*,

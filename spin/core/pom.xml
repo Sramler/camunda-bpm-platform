@@ -238,7 +238,6 @@
         <configuration>
          <instructions>
           <Import-Package>
-            org.junit*;resolution:=optional,
             *
           </Import-Package>
          </instructions>

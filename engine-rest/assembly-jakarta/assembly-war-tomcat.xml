@@ -40,11 +40,6 @@
         <include>org.jboss.resteasy:resteasy-core</include>
 
       </includes>
-      <excludes>
-        <exclude>org.camunda.bpm:camunda-engine-rest-core-jakarta:jar:tests</exclude>
-        <exclude>org.camunda.bpm:camunda-engine-rest-core-jakarta:jar:sources</exclude>
-      </excludes>
-
     </dependencySet>
 
     <dependencySet>

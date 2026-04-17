@@ -12,6 +12,7 @@
 
   <dependencySets>
    <dependencySet>
+      <useProjectArtifact>false</useProjectArtifact>
       <outputDirectory>/</outputDirectory>
       <includes>
         <include>org.camunda.bpm:license-book:zip</include>
@@ -19,6 +20,7 @@
       <unpack>true</unpack>
     </dependencySet>
    <dependencySet>
+      <useProjectArtifact>false</useProjectArtifact>
       <outputDirectory>server/</outputDirectory>
       <includes>
         <include>org.apache.tomcat:tomcat:tar.gz</include>
@@ -31,6 +33,7 @@
       <unpack>true</unpack>
     </dependencySet>
     <dependencySet>
+      <useProjectArtifact>false</useProjectArtifact>
       <outputDirectory>server/apache-tomcat-${version.tomcat}/lib</outputDirectory>
       <includes>
 
@@ -76,6 +79,7 @@
     </dependencySet>
 
     <dependencySet>
+      <useProjectArtifact>false</useProjectArtifact>
       <outputDirectory>lib/</outputDirectory>
       <includes>
 
