@@ -1,0 +1,43 @@
+---
+description: Branch governance for sb3 and sb4 delivery, plus safe Git rules for Cursor agents
+globs:
+alwaysApply: true
+---
+
+# Branch Governance
+
+## Branch roles
+
+- `sb3` is the formal Spring Boot 3 stable line.
+- `sb4` is the formal Spring Boot 4 / Jackson 3 upgrade line.
+- `master` is a historical baseline. Do not use `master` as the default target branch for new fixes or upgrade work unless the user explicitly requests it.
+
+## Branch selection rules
+
+- Business fixes, production fixes, and changes that should exist on both lines must start from `sb3`.
+- Spring Boot 4, Jackson 3, Jakarta, Camunda fork compatibility, and upgrade-only changes must start from `sb4`.
+- After a fix is validated on `sb3`, backport or forward-port it to `sb4` with a controlled `cherry-pick`.
+- Never merge `sb4` back into `sb3`.
+
+## Safe Git workflow
+
+- Before editing or committing, always check the current branch with `git branch --show-current` and `git status --short --branch`.
+- Prefer `git fetch --all --prune` to inspect remote state.
+- Do not run `git pull` on a dirty worktree.
+- Do not switch branches in a dirty worktree unless the user explicitly asks for it and the impact is clear.
+- If branch-isolated work is needed while the current worktree is dirty, prefer `git worktree` instead of risky checkout or reset operations.
+- Never use destructive commands such as `git reset --hard`, `git checkout --`, or forced branch rewrites unless the user explicitly requests them.
+
+## Commit and PR rules
+
+- Every commit must match the target branch scope.
+- Do not commit SB4-only compatibility changes onto `sb3`.
+- Do not commit SB3-only hotfixes onto `sb4` without stating that they are a backport or forward-port.
+- PRs for stable fixes should target `sb3`.
+- PRs for upgrade work should target `sb4`.
+- Do not open routine PRs against `master`.
+
+## Stop and confirm
+
+- If the correct target branch is ambiguous, stop and ask instead of guessing.
+- If the worktree already contains unrelated changes, do not clean them up automatically; isolate your work and commit only the intended files.
