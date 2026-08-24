@@ -28,10 +28,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import org.camunda.spin.json.mapping.CustomerList;
+import org.camunda.spin.json.mapping.DateObject;
 import org.camunda.spin.json.mapping.GenericCustomerList;
 import org.camunda.spin.json.mapping.Order;
 import org.camunda.spin.json.mapping.RegularCustomer;
@@ -44,6 +46,28 @@ import org.camunda.spin.spi.DataFormatWriter;
 import org.junit.Test;
 
 public class JsonSerializationTest {
+
+  @Test
+  public void shouldReadLegacyNumericDatePayload() throws Exception {
+    long timestamp = 1704164645000L;
+    DateObject dateObject = (DateObject) deserializeFromByteArray(
+        ("{\"date\":" + timestamp + "}").getBytes(),
+        DateObject.class.getName());
+
+    assertEquals(new Date(timestamp), dateObject.getDate());
+  }
+
+  @Test
+  public void shouldRoundTripDatePayloadWithoutChangingRepresentation() throws Exception {
+    DateObject source = new DateObject();
+    source.setDate(new Date(1704164645000L));
+
+    byte[] bytes = serializeToByteArray(source);
+    assertThat(new String(bytes)).contains("\"date\":1704164645000");
+
+    DateObject restored = (DateObject) deserializeFromByteArray(bytes, DateObject.class.getName());
+    assertEquals(source.getDate(), restored.getDate());
+  }
 
   @Test
   public void testNotGenericList() throws Exception {

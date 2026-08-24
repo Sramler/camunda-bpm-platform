@@ -24,9 +24,9 @@ import org.camunda.spin.impl.json.jackson.format.JacksonJsonDataFormat;
 import org.camunda.spin.json.SpinJsonNode;
 import org.camunda.spin.json.SpinJsonPathQuery;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
+import tools.jackson.databind.JsonNode;
 
 /**
  * @author Stefan Hentschel

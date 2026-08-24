@@ -16,24 +16,9 @@
  */
 package org.camunda.bpm.spring.boot.starter.spin;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.camunda.spin.impl.json.jackson.format.JacksonJsonDataFormat;
-import org.camunda.spin.spi.DataFormatConfigurator;
+public class CamundaJacksonFormatConfiguratorJSR310 extends AbstractCamundaJacksonFormatConfigurator {
 
-
-public class CamundaJacksonFormatConfiguratorJSR310 implements DataFormatConfigurator<JacksonJsonDataFormat> {
-
-  @Override
-  public Class<JacksonJsonDataFormat> getDataFormatClass() {
-    return JacksonJsonDataFormat.class;
-  }
-
-  @Override
-  public void configure(JacksonJsonDataFormat dataFormat) {
-    ObjectMapper mapper = dataFormat.getObjectMapper();
-    final JavaTimeModule javaTimeModule = new JavaTimeModule();
-
-    mapper.registerModule(javaTimeModule);
+  public CamundaJacksonFormatConfiguratorJSR310() {
+    super("tools.jackson.datatype.jsr310.JavaTimeModule");
   }
 }

@@ -24,9 +24,9 @@ import org.camunda.spin.json.SpinJsonNode;
 import org.camunda.spin.json.SpinJsonPathException;
 import org.camunda.spin.json.SpinJsonPropertyException;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.JsonNodeType;
+import tools.jackson.databind.JavaType;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.node.JsonNodeType;
 import com.jayway.jsonpath.PathNotFoundException;
 
 /**

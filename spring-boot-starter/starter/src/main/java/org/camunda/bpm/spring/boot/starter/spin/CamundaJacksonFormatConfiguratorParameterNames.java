@@ -16,24 +16,9 @@
  */
 package org.camunda.bpm.spring.boot.starter.spin;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
-import org.camunda.spin.impl.json.jackson.format.JacksonJsonDataFormat;
-import org.camunda.spin.spi.DataFormatConfigurator;
+public class CamundaJacksonFormatConfiguratorParameterNames extends AbstractCamundaJacksonFormatConfigurator {
 
-
-public class CamundaJacksonFormatConfiguratorParameterNames implements DataFormatConfigurator<JacksonJsonDataFormat> {
-
-  @Override
-  public Class<JacksonJsonDataFormat> getDataFormatClass() {
-    return JacksonJsonDataFormat.class;
-  }
-
-  @Override
-  public void configure(JacksonJsonDataFormat dataFormat) {
-    ObjectMapper mapper = dataFormat.getObjectMapper();
-    final ParameterNamesModule parameterNamesModule = new ParameterNamesModule();
-
-    mapper.registerModule(parameterNamesModule);
+  public CamundaJacksonFormatConfiguratorParameterNames() {
+    super("tools.jackson.module.paramnames.ParameterNamesModule");
   }
 }

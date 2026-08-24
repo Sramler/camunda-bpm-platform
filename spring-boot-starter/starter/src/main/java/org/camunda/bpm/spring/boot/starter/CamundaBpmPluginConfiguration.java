@@ -16,10 +16,6 @@
  */
 package org.camunda.bpm.spring.boot.starter;
 
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
-
 import org.camunda.bpm.engine.impl.cfg.ProcessEnginePlugin;
 import org.camunda.bpm.spring.boot.starter.plugin.ApplicationContextClassloaderSwitchPlugin;
 import org.camunda.bpm.spring.boot.starter.spin.CamundaJacksonFormatConfiguratorJSR310;
@@ -47,8 +43,11 @@ public class CamundaBpmPluginConfiguration {
      which breaks auto-configuration for Jackson Java 8 modules.
   */
 
-  @ConditionalOnClass({JacksonJsonDataFormat.class, JavaTimeModule.class})
-  @ConditionalOnMissingClass("spinjar.com.fasterxml.jackson.databind.ObjectMapper")
+  @ConditionalOnClass(name = {
+      "org.camunda.spin.impl.json.jackson.format.JacksonJsonDataFormat",
+      "tools.jackson.datatype.jsr310.JavaTimeModule"
+  })
+  @ConditionalOnMissingClass("spinjar.tools.jackson.databind.ObjectMapper")
   @Configuration
   static class SpinDataFormatConfigurationJSR310 {
 
@@ -60,8 +59,11 @@ public class CamundaBpmPluginConfiguration {
 
   }
 
-  @ConditionalOnClass({JacksonJsonDataFormat.class, ParameterNamesModule.class})
-  @ConditionalOnMissingClass("spinjar.com.fasterxml.jackson.databind.ObjectMapper")
+  @ConditionalOnClass(name = {
+      "org.camunda.spin.impl.json.jackson.format.JacksonJsonDataFormat",
+      "tools.jackson.module.paramnames.ParameterNamesModule"
+  })
+  @ConditionalOnMissingClass("spinjar.tools.jackson.databind.ObjectMapper")
   @Configuration
   static class SpinDataFormatConfigurationParameterNames {
 
@@ -73,8 +75,11 @@ public class CamundaBpmPluginConfiguration {
 
   }
 
-  @ConditionalOnClass({JacksonJsonDataFormat.class, Jdk8Module.class})
-  @ConditionalOnMissingClass("spinjar.com.fasterxml.jackson.databind.ObjectMapper")
+  @ConditionalOnClass(name = {
+      "org.camunda.spin.impl.json.jackson.format.JacksonJsonDataFormat",
+      "tools.jackson.datatype.jdk8.Jdk8Module"
+  })
+  @ConditionalOnMissingClass("spinjar.tools.jackson.databind.ObjectMapper")
   @Configuration
   static class SpinDataFormatConfigurationJdk8 {
 

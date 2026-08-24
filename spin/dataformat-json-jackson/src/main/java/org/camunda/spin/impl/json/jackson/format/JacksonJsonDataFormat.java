@@ -22,8 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.jayway.jsonpath.spi.json.JacksonJsonProvider;
-import com.jayway.jsonpath.spi.mapper.JacksonMappingProvider;
 import org.camunda.spin.DataFormats;
 import org.camunda.spin.impl.json.jackson.JacksonJsonLogger;
 import org.camunda.spin.impl.json.jackson.JacksonJsonNode;
@@ -32,14 +30,17 @@ import org.camunda.spin.json.SpinJsonNode;
 import org.camunda.spin.spi.DataFormat;
 import org.camunda.spin.spi.TypeDetector;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.Configuration.ConfigurationBuilder;
+import tools.jackson.databind.JavaType;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.cfg.DateTimeFeature;
+import tools.jackson.databind.json.JsonMapper;
+import tools.jackson.databind.node.ArrayNode;
+import tools.jackson.databind.node.ObjectNode;
+import tools.jackson.databind.type.TypeFactory;
 
 /**
  * Spin data format that can wrap Json content and uses
@@ -72,15 +73,18 @@ public class JacksonJsonDataFormat implements DataFormat<SpinJsonNode> {
   protected final String name;
 
   public JacksonJsonDataFormat(String name) {
-    this(name, new ObjectMapper());
+    this(name, JsonMapper.builder()
+        .enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+        .enable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
+        .build());
   }
 
   public JacksonJsonDataFormat(String name, ObjectMapper objectMapper) {
 
     this(name, objectMapper,
         new ConfigurationBuilder()
-          .jsonProvider(new JacksonJsonProvider(objectMapper))
-          .mappingProvider(new JacksonMappingProvider(objectMapper))
+          .jsonProvider(new JacksonJsonPathJsonProvider(objectMapper))
+          .mappingProvider(new JacksonJsonPathMappingProvider(objectMapper))
           .build());
   }
 
@@ -162,7 +166,7 @@ public class JacksonJsonDataFormat implements DataFormat<SpinJsonNode> {
    */
   public JavaType constructJavaTypeFromCanonicalString(String canonicalString) {
     try {
-      return TypeFactory.defaultInstance().constructFromCanonical(canonicalString);
+      return objectMapper.getTypeFactory().constructFromCanonical(canonicalString);
     } catch (IllegalArgumentException e) {
       throw LOG.unableToConstructJavaType(canonicalString, e);
     }

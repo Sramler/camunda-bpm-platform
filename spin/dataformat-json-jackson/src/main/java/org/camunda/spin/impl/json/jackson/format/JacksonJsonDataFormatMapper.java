@@ -16,7 +16,6 @@
  */
 package org.camunda.spin.impl.json.jackson.format;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +24,11 @@ import org.camunda.spin.SpinRuntimeException;
 import org.camunda.spin.impl.json.jackson.JacksonJsonLogger;
 import org.camunda.spin.spi.DataFormatMapper;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.TypeFactory;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.JavaType;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.type.TypeFactory;
 
 public class JacksonJsonDataFormatMapper implements DataFormatMapper {
 
@@ -65,7 +65,7 @@ public class JacksonJsonDataFormatMapper implements DataFormatMapper {
 
   @Override
   public <T> T mapInternalToJava(Object parameter, Class<T> type, DeserializationTypeValidator validator) {
-    JavaType javaType = TypeFactory.defaultInstance().constructType(type);
+    JavaType javaType = format.getObjectMapper().getTypeFactory().constructType(type);
     return mapInternalToJava(parameter, javaType, validator);
   }
 
@@ -96,7 +96,7 @@ public class JacksonJsonDataFormatMapper implements DataFormatMapper {
       validateType(type, validator);
       ObjectMapper mapper = format.getObjectMapper();
       return mapper.readValue(mapper.treeAsTokens(jsonNode), type);
-    } catch (IOException | SpinRuntimeException e) {
+    } catch (JacksonException | SpinRuntimeException e) {
       throw LOG.unableToDeserialize(jsonNode, type, e);
     }
   }
