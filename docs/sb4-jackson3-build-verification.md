@@ -10,7 +10,7 @@
 
 - `codex/camunda7-sb4-fork`
 
-当前待发布版本：
+当前不可变 fork 版本：
 
 - `7.24.0-tiny-sb4-jackson3-01`
 
@@ -20,10 +20,11 @@
 
 ## 1. 本轮收口目标
 
-本轮主要处理两类问题：
+本轮主要处理三类问题：
 
 - 收口 Spring Boot 4.1.0-SNAPSHOT / Spring 7.0.7-SNAPSHOT 经 `camunda-nexus` 触发的 Maven metadata / 401 噪音
 - 收口 Jackson 3 迁移后阻断 `-DskipTests` 打包路径的 `spin/dataformat-json-jackson:testCompile` 问题
+- 完成 REST Provider 与 Spin 历史语义的 Jackson 3 运行时验收
 
 本轮不处理：
 
@@ -176,6 +177,22 @@ mvn -pl clients/java/client -am -DskipTests -Dmaven.repo.local=/usr/local/data/r
 
 - 零命中
 
+### 3.4 Spin Jackson 3 完整模块测试
+
+命令：
+
+```bash
+mvn -pl spin/dataformat-json-jackson -am test -DskipITs
+```
+
+结果：
+
+- 671 条测试通过，0 失败、0 错误、5 条按运行时条件跳过；
+- 旧数字日期 payload 可读，Date 默认仍按历史数字时间戳写回；
+- 未知字段保持 fail-fast；
+- 结构节点文本访问继续包装为稳定的 Spin 异常；
+- Java object 映射和 JSONPath 由完整模块测试覆盖。
+
 ## 4. 当前结论
 
 截至 2026-08-24，本 fork 已达到以下状态：
@@ -219,8 +236,13 @@ mvn -pl clients/java/client -am -DskipTests -Dmaven.repo.local=/usr/local/data/r
 - `SampleCamundaRestApplicationIT` 随机端口真实 HTTP 测试：6 条通过，
   0 失败、0 错误。
 
-未完成项：
+制品与消费者验证：
 
-- 已确定新的不可变 fork 版本 `7.24.0-tiny-sb4-jackson3-01`，但尚未发布；
-- tiny-platform 的 `-Pcamunda-rest` 真实 MySQL 应用级 E2E 必须等待新制品接入；
-- Spin 历史 payload、对象映射、JSONPath 与失败回滚仍需独立完整验收。
+- 185 个 reactor POM 已统一使用新版本，未覆盖旧 `7.24.0-tiny-sb4-01`；
+- REST 45 模块、BOM 链和 `spin/dataformat-all` 已安装到本地 Maven 仓库；
+- tiny-platform 已切换到该版本，默认 Engine Only 与 `camunda-rest` 两套依赖树门禁均通过；
+- tiny-platform `-Pcamunda-rest` 在真实 MySQL 上完成 engine 查询、REST 部署、流程启动、
+  String/Integer/Boolean/Date 变量往返、非法 JSON 4xx 和级联清理；测试残留为 0。
+
+发布边界：本地不可变制品与消费者验收已经完成；若需供其他环境使用，仍须按组织制品库流程
+发布同一版本内容，禁止重新构建不同内容覆盖该版本。
