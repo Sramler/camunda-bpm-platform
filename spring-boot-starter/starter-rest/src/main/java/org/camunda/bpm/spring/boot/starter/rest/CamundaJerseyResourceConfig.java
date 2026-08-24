@@ -18,7 +18,6 @@ package org.camunda.bpm.spring.boot.starter.rest;
 
 import jakarta.ws.rs.ApplicationPath;
 import org.camunda.bpm.engine.rest.impl.CamundaRestResources;
-import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
@@ -39,7 +38,6 @@ public class CamundaJerseyResourceConfig extends ResourceConfig implements Initi
 
     this.registerClasses(CamundaRestResources.getResourceClasses());
     this.registerClasses(CamundaRestResources.getConfigurationClasses());
-    this.register(JacksonFeature.class);
 
     log.info("Finished configuring camunda rest api.");
   }

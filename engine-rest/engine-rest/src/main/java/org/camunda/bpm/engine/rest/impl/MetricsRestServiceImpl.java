@@ -20,7 +20,7 @@ import org.camunda.bpm.engine.rest.MetricsRestService;
 import org.camunda.bpm.engine.rest.sub.metrics.MetricsResource;
 import org.camunda.bpm.engine.rest.sub.metrics.MetricsResourceImpl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

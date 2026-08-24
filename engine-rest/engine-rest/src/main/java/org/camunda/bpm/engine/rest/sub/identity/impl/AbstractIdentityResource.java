@@ -16,7 +16,7 @@
  */
 package org.camunda.bpm.engine.rest.sub.identity.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.camunda.bpm.engine.IdentityService;
 import org.camunda.bpm.engine.authorization.Resource;
 import org.camunda.bpm.engine.rest.exception.InvalidRequestException;

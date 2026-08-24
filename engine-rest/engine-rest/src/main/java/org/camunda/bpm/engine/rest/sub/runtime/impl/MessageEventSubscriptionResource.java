@@ -31,7 +31,7 @@ import org.camunda.bpm.engine.rest.sub.runtime.EventSubscriptionResource;
 import org.camunda.bpm.engine.runtime.EventSubscription;
 import org.camunda.bpm.engine.variable.VariableMap;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class MessageEventSubscriptionResource implements EventSubscriptionResource {
 

@@ -25,7 +25,7 @@ import org.camunda.bpm.engine.rest.sub.impl.AbstractVariablesResource;
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.value.TypedValue;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * @author Daniel Meyer

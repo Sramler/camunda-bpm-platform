@@ -21,17 +21,17 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
+import tools.jackson.databind.DatabindException;
 
 /**
  * @author Thorben Lindhauer
  *
  */
 @Provider
-public class JsonMappingExceptionHandler implements ExceptionMapper<JsonMappingException> {
+public class JsonMappingExceptionHandler implements ExceptionMapper<DatabindException> {
 
   @Override
-  public Response toResponse(JsonMappingException exception) {
+  public Response toResponse(DatabindException exception) {
     InvalidRequestException badRequestException = new InvalidRequestException(Status.BAD_REQUEST,
                                                                               exception, "");
     return ExceptionHandlerHelper.getInstance().getResponse(badRequestException);

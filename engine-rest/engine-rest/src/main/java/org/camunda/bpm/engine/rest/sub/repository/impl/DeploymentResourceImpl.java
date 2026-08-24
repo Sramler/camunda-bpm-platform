@@ -40,7 +40,7 @@ import org.camunda.bpm.engine.rest.impl.AbstractRestProcessEngineAware;
 import org.camunda.bpm.engine.rest.sub.repository.DeploymentResource;
 import org.camunda.bpm.engine.rest.sub.repository.DeploymentResourcesResource;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class DeploymentResourceImpl extends AbstractRestProcessEngineAware implements DeploymentResource {
 

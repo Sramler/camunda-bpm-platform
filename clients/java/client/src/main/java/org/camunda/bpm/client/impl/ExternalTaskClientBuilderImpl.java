@@ -20,9 +20,9 @@ import static org.camunda.bpm.client.task.OrderingConfig.Direction.ASC;
 import static org.camunda.bpm.client.task.OrderingConfig.Direction.DESC;
 import static org.camunda.bpm.client.task.OrderingConfig.SortingField.CREATE_TIME;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.cfg.DateTimeFeature;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
@@ -265,14 +265,14 @@ public class ExternalTaskClientBuilderImpl implements ExternalTaskClientBuilder 
   }
 
   protected void initObjectMapper() {
-    objectMapper = new ObjectMapper();
-    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    objectMapper.configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false);
-    objectMapper.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
-
-    SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-    objectMapper.setDateFormat(sdf);
-    objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+    objectMapper = new ObjectMapper().rebuild()
+      .disable(
+        DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
+        DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS,
+        DeserializationFeature.FAIL_ON_INVALID_SUBTYPE)
+      .defaultDateFormat(new SimpleDateFormat(dateFormat))
+      .disable(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS)
+      .build();
   }
 
   @SuppressWarnings({ "rawtypes", "unchecked" })

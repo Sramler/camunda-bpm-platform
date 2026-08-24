@@ -16,7 +16,7 @@
  */
 package org.camunda.bpm.engine.rest.exception;
 
-import com.fasterxml.jackson.core.JsonParseException;
+import tools.jackson.core.exc.StreamReadException;
 import org.camunda.bpm.engine.rest.dto.ExceptionDto;
 
 import javax.ws.rs.core.MediaType;
@@ -30,10 +30,10 @@ import javax.ws.rs.ext.Provider;
  *
  */
 @Provider
-public class JsonParseExceptionHandler implements ExceptionMapper<JsonParseException> {
+public class JsonParseExceptionHandler implements ExceptionMapper<StreamReadException> {
 
   @Override
-  public Response toResponse(JsonParseException exception) {
+  public Response toResponse(StreamReadException exception) {
     InvalidRequestException badRequestException = new InvalidRequestException(Status.BAD_REQUEST,
                                                                               exception, "");
     return ExceptionHandlerHelper.getInstance().getResponse(badRequestException);

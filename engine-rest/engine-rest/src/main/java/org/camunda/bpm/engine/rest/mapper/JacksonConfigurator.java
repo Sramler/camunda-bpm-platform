@@ -25,10 +25,10 @@ import javax.ws.rs.ext.Provider;
 
 import org.camunda.bpm.engine.rest.hal.Hal;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.cfg.DateTimeFeature;
+import tools.jackson.databind.json.JsonMapper;
 
 @Provider
 @Produces({MediaType.APPLICATION_JSON, Hal.APPLICATION_HAL_JSON})
@@ -39,18 +39,20 @@ public class JacksonConfigurator implements ContextResolver<ObjectMapper> {
 
   public static ObjectMapper configureObjectMapper(ObjectMapper mapper) {
     SimpleDateFormat dateFormat = new SimpleDateFormat(dateFormatString);
-    mapper.setDateFormat(dateFormat);
-    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-    mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-    
-    mapper.registerModule(new JavaTimeModule());
+    JsonMapper.Builder builder = mapper instanceof JsonMapper
+        ? ((JsonMapper) mapper).rebuild()
+        : JsonMapper.builder();
 
-    return mapper;
+    return builder
+        .defaultDateFormat(dateFormat)
+        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+        .configure(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+        .build();
   }
 
   @Override
   public ObjectMapper getContext(Class<?> clazz) {
-    return configureObjectMapper(new ObjectMapper());
+    return configureObjectMapper(new JsonMapper());
   }
 
   public static void setDateFormatString(String dateFormatString) {

@@ -17,19 +17,36 @@
 package org.camunda.bpm.engine.rest.util;
 
 import org.camunda.bpm.engine.rest.mapper.JacksonConfigurator;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.restassured.path.json.mapper.factory.DefaultJackson2ObjectMapperFactory;
+import tools.jackson.databind.ObjectMapper;
 import io.restassured.path.json.JsonPath;
 
 public final class JsonPathUtil {
 
-  public static JsonPath from(String json) {
-    return JsonPath.from(json).using(new DefaultJackson2ObjectMapperFactory() {
-      public ObjectMapper create(Class cls, String charset) {
-        return JacksonConfigurator.configureObjectMapper(super.create(cls, charset));
-      }
-    });
+  public static Jackson3JsonPath from(String json) {
+    return new Jackson3JsonPath(json);
   }
 
+  public static final class Jackson3JsonPath {
+
+    private final JsonPath jsonPath;
+    private final ObjectMapper objectMapper;
+
+    private Jackson3JsonPath(String json) {
+      this.jsonPath = JsonPath.from(json);
+      this.objectMapper = JacksonConfigurator.configureObjectMapper(new ObjectMapper());
+    }
+
+    public <T> T get() {
+      return jsonPath.get();
+    }
+
+    public String getString(String path) {
+      return jsonPath.getString(path);
+    }
+
+    public <T> T getObject(String path, Class<T> type) {
+      Object value = path == null || path.isEmpty() ? jsonPath.get() : jsonPath.get(path);
+      return objectMapper.convertValue(value, type);
+    }
+  }
 }

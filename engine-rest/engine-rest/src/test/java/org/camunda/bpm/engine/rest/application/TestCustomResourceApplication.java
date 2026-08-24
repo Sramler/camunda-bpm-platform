@@ -16,9 +16,9 @@
  */
 package org.camunda.bpm.engine.rest.application;
 
-import com.fasterxml.jackson.jaxrs.base.JsonMappingExceptionMapper;
-import com.fasterxml.jackson.jaxrs.base.JsonParseExceptionMapper;
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import tools.jackson.jaxrs.base.DatabindExceptionMapper;
+import tools.jackson.jaxrs.base.StreamReadExceptionMapper;
+import tools.jackson.jaxrs.json.JacksonJsonProvider;
 import org.camunda.bpm.engine.rest.exception.ExceptionHandler;
 import org.camunda.bpm.engine.rest.exception.ProcessEngineExceptionHandler;
 import org.camunda.bpm.engine.rest.exception.RestExceptionHandler;
@@ -45,8 +45,8 @@ public class TestCustomResourceApplication extends Application {
     PROVIDERS.add(JacksonConfigurator.class);
 
     PROVIDERS.add(JacksonJsonProvider.class);
-    PROVIDERS.add(JsonMappingExceptionMapper.class);
-    PROVIDERS.add(JsonParseExceptionMapper.class);
+    PROVIDERS.add(DatabindExceptionMapper.class);
+    PROVIDERS.add(StreamReadExceptionMapper.class);
 
     PROVIDERS.add(ProcessEngineExceptionHandler.class);
     PROVIDERS.add(RestExceptionHandler.class);

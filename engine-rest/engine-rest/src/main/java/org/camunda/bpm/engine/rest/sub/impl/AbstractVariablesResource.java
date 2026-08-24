@@ -41,9 +41,9 @@ import org.camunda.bpm.engine.runtime.DeserializationTypeValidator;
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.Variables;
 import org.camunda.bpm.engine.variable.value.TypedValue;
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.TypeFactory;
+import tools.jackson.databind.JavaType;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.type.TypeFactory;
 
 
 public abstract class AbstractVariablesResource implements VariableResource {
@@ -167,7 +167,7 @@ public abstract class AbstractVariablesResource implements VariableResource {
 
   protected Object deserializeJsonObject(String className, byte[] data) {
     try {
-      JavaType type = TypeFactory.defaultInstance().constructFromCanonical(className);
+      JavaType type = TypeFactory.createDefaultInstance().constructFromCanonical(className);
       validateType(type);
       return objectMapper.readValue(new String(data, Charset.forName("UTF-8")), type);
     } catch(Exception e) {

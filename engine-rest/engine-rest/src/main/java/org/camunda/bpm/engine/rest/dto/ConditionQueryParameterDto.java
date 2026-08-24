@@ -16,7 +16,7 @@
  */
 package org.camunda.bpm.engine.rest.dto;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.camunda.bpm.engine.impl.QueryOperator;
 
 import java.util.Date;

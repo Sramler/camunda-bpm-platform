@@ -16,8 +16,8 @@
  */
 package org.camunda.bpm.engine.rest.converter;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import org.camunda.bpm.engine.impl.calendar.DateTimeUtil;
 import org.camunda.bpm.engine.rest.dto.converter.DateConverter;
 import org.camunda.bpm.engine.rest.exception.InvalidRequestException;
@@ -53,7 +53,7 @@ public class DateConverterTest {
   }
 
   @Test
-  public void shouldConvertDate() throws JsonProcessingException {
+  public void shouldConvertDate() throws JacksonException {
     //given
     String value = "2014-01-01T00:00:00+0200";
     ObjectMapper mock = mock(ObjectMapper.class);

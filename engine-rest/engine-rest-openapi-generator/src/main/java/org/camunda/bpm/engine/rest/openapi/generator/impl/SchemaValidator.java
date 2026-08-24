@@ -17,14 +17,15 @@
 package org.camunda.bpm.engine.rest.openapi.generator.impl;
 
 import java.io.File;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.networknt.schema.JsonSchema;
-import com.networknt.schema.JsonSchemaFactory;
-import com.networknt.schema.ValidationMessage;
+import com.networknt.schema.Error;
+import com.networknt.schema.Schema;
+import com.networknt.schema.SchemaRegistry;
+import com.networknt.schema.SpecificationVersion;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 public class SchemaValidator {
   public static void main(String[] args) throws Exception {
@@ -39,14 +40,14 @@ public class SchemaValidator {
     JsonNode schemaNode = mapper.readTree(new File(jsonSchemaPath));
     JsonNode inputNode = mapper.readTree(new File(inputFile));
 
-    JsonSchemaFactory factory = JsonSchemaFactory.getInstance();
-    JsonSchema schema = factory.getSchema(schemaNode);
+    SchemaRegistry registry = SchemaRegistry.withDefaultDialect(SpecificationVersion.DRAFT_2020_12);
+    Schema schema = registry.getSchema(schemaNode);
 
-    Set<ValidationMessage> errors = schema.validate(inputNode);
+    List<Error> errors = schema.validate(inputNode);
 
     if (errors.size() > 0) {
       String messages = errors.stream()
-                              .map(ValidationMessage::getMessage)
+                              .map(Error::getMessage)
                               .collect(Collectors.joining("\n"));
 
       throw new RuntimeException("Schema validation errors\n" + messages);

@@ -22,7 +22,7 @@ import org.camunda.bpm.engine.rest.dto.TelemetryConfigurationDto;
 import org.camunda.bpm.engine.rest.dto.telemetry.TelemetryDataDto;
 import org.camunda.bpm.engine.telemetry.TelemetryData;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class TelemetryRestServiceImpl extends AbstractRestProcessEngineAware implements TelemetryRestService {
 

@@ -30,7 +30,7 @@ import org.camunda.bpm.engine.rest.dto.ResourceOptionsDto;
 import org.camunda.bpm.engine.rest.sub.identity.TenantUserMembersResource;
 import org.camunda.bpm.engine.rest.util.PathUtil;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class TenantUserMembersResourceImpl extends AbstractIdentityResource implements TenantUserMembersResource {
 

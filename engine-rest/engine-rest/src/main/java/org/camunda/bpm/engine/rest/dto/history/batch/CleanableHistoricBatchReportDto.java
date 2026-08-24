@@ -26,7 +26,7 @@ import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.history.CleanableHistoricBatchReport;
 import org.camunda.bpm.engine.rest.dto.AbstractQueryDto;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class CleanableHistoricBatchReportDto extends AbstractQueryDto<CleanableHistoricBatchReport> {
 

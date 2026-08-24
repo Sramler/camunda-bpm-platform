@@ -28,7 +28,7 @@ import org.camunda.bpm.engine.impl.util.ReflectUtil;
 import org.camunda.bpm.engine.rest.cache.Cache;
 import org.camunda.bpm.engine.rest.hal.Hal;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class HalRelationCacheBootstrap implements ServletContextListener {
 

@@ -16,7 +16,7 @@
  */
 package org.camunda.bpm.engine.rest.sub.task.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.impl.TaskServiceImpl;
 import org.camunda.bpm.engine.rest.sub.impl.AbstractVariablesResource;

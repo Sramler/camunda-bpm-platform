@@ -32,7 +32,7 @@ import org.camunda.bpm.engine.rest.exception.RestException;
 import org.camunda.bpm.engine.rest.history.HistoryCleanupRestService;
 import org.camunda.bpm.engine.runtime.Job;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class HistoryCleanupRestServiceImpl implements HistoryCleanupRestService {
 

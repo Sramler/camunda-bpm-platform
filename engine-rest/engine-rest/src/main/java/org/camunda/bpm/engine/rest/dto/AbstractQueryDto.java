@@ -30,7 +30,7 @@ import org.camunda.bpm.engine.rest.exception.RestException;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response.Status;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 /**
  * Defines common query operations, such as sorting options and validation.

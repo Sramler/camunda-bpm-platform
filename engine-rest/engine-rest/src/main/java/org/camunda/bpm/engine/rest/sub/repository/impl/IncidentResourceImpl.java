@@ -28,7 +28,7 @@ import org.camunda.bpm.engine.rest.exception.InvalidRequestException;
 import org.camunda.bpm.engine.rest.sub.runtime.IncidentResource;
 import org.camunda.bpm.engine.runtime.Incident;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class IncidentResourceImpl implements IncidentResource {
 

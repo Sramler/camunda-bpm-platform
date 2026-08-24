@@ -19,7 +19,7 @@ package org.camunda.bpm.engine.rest.dto;
 import org.camunda.bpm.engine.impl.TaskQueryVariableValue;
 import org.camunda.bpm.engine.variable.Variables;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 public class VariableQueryParameterDto extends ConditionQueryParameterDto {
 

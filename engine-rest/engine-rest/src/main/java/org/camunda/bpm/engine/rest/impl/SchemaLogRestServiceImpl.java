@@ -16,7 +16,7 @@
  */
 package org.camunda.bpm.engine.rest.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import java.util.List;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.UriInfo;

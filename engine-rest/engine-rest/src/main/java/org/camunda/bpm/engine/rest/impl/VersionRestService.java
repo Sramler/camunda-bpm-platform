@@ -22,7 +22,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.camunda.bpm.engine.rest.dto.VersionDto;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 
 @Produces(MediaType.APPLICATION_JSON)
 public class VersionRestService extends AbstractRestProcessEngineAware {

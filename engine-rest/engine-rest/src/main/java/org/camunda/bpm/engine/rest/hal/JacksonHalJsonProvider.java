@@ -17,7 +17,7 @@
 package org.camunda.bpm.engine.rest.hal;
 
 
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import tools.jackson.jaxrs.json.JacksonJsonProvider;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;

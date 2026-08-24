@@ -32,7 +32,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.resttestclient.TestRestTemplate;
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -48,6 +49,7 @@ import my.own.custom.spring.boot.project.SampleCamundaRestApplication;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SampleCamundaRestApplication.class, webEnvironment = RANDOM_PORT)
+@AutoConfigureTestRestTemplate
 public class SampleCamundaRestApplicationIT {
 
   @Autowired
@@ -118,6 +120,52 @@ public class SampleCamundaRestApplicationIT {
       camundaBpmProperties.getProcessEngineName());
     assertEquals(HttpStatus.OK, entity.getStatusCode());
     assertEquals("[]", entity.getBody());
+  }
+
+  @Test
+  public void jsonVariablesRoundTripThroughJackson3Provider() {
+    ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("TestProcess");
+    String variablesJson = "{\"modifications\":{"
+      + "\"textValue\":{\"value\":\"hello\",\"type\":\"String\"},"
+      + "\"countValue\":{\"value\":42,\"type\":\"Integer\"},"
+      + "\"flagValue\":{\"value\":true,\"type\":\"Boolean\"}}}";
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_JSON);
+
+    ResponseEntity<Void> updateResponse = testRestTemplate.exchange(
+      "/engine-rest/engine/{engineName}/process-instance/{id}/variables",
+      HttpMethod.POST,
+      new HttpEntity<>(variablesJson, headers),
+      Void.class,
+      camundaBpmProperties.getProcessEngineName(),
+      processInstance.getId());
+
+    assertEquals(HttpStatus.NO_CONTENT, updateResponse.getStatusCode());
+
+    ResponseEntity<String> readResponse = testRestTemplate.getForEntity(
+      "/engine-rest/engine/{engineName}/process-instance/{id}/variables",
+      String.class,
+      camundaBpmProperties.getProcessEngineName(),
+      processInstance.getId());
+
+    assertEquals(HttpStatus.OK, readResponse.getStatusCode());
+    assertTrue(readResponse.getBody().contains("\"textValue\":{\"type\":\"String\",\"value\":\"hello\""));
+    assertTrue(readResponse.getBody().contains("\"countValue\":{\"type\":\"Integer\",\"value\":42"));
+    assertTrue(readResponse.getBody().contains("\"flagValue\":{\"type\":\"Boolean\",\"value\":true"));
+  }
+
+  @Test
+  public void malformedJsonReturnsClientError() {
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_JSON);
+
+    ResponseEntity<String> response = testRestTemplate.postForEntity(
+      "/engine-rest/engine/{engineName}/process-definition/key/TestProcess/start",
+      new HttpEntity<>("{not-valid-json", headers),
+      String.class,
+      camundaBpmProperties.getProcessEngineName());
+
+    assertTrue(response.getStatusCode().is4xxClientError());
   }
 
 }
