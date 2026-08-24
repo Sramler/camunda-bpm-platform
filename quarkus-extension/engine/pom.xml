@@ -6,7 +6,7 @@
   <parent>
     <artifactId>camunda-bpm-quarkus-parent</artifactId>
     <groupId>org.camunda.bpm.quarkus</groupId>
-    <version>7.24.0-tiny-sb4-01</version>
+    <version>7.24.0-tiny-sb4-jackson3-01</version>
   </parent>
 
   <artifactId>camunda-bpm-quarkus-engine-parent</artifactId>

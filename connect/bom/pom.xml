@@ -6,13 +6,13 @@
   <parent>
     <groupId>org.camunda.bpm</groupId>
     <artifactId>camunda-root</artifactId>
-    <version>7.24.0-tiny-sb4-01</version>
+    <version>7.24.0-tiny-sb4-jackson3-01</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
 
   <groupId>org.camunda.connect</groupId>
   <artifactId>camunda-connect-bom</artifactId>
-  <version>7.24.0-tiny-sb4-01</version>
+  <version>7.24.0-tiny-sb4-jackson3-01</version>
   <name>Camunda Platform - connect - bom</name>
   <packaging>pom</packaging>
 

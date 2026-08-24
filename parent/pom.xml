@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.camunda.bpm</groupId>
     <artifactId>camunda-root</artifactId>
-    <version>7.24.0-tiny-sb4-01</version>
+    <version>7.24.0-tiny-sb4-jackson3-01</version>
     <relativePath>../</relativePath>
   </parent>
 
@@ -22,7 +22,7 @@
     <version.quarkus>3.27.0</version.quarkus>
     <version.spring.framework>5.3.39</version.spring.framework>
     <version.spring.framework6>6.2.10</version.spring.framework6>
-    <version.spring-boot>4.0.0</version.spring-boot>
+    <version.spring-boot>4.1.1</version.spring-boot>
     <version.resteasy>3.15.6.Final</version.resteasy>
     <version.jersey2>2.34</version.jersey2>
     <!-- use minimum version of resteasy and jersey -->
@@ -38,7 +38,7 @@
     <version.openjpa>2.4.3</version.openjpa>
     <version.hibernate>5.6.5.Final</version.hibernate>
     <version.hikaricp>4.0.3</version.hikaricp>
-    <version.jackson>2.15.2</version.jackson>
+    <version.jackson>3.1.5</version.jackson>
     <version.xml.bind-api>2.3.3</version.xml.bind-api>
     <version.xml.jaxb-impl>2.3.6</version.xml.jaxb-impl>
     <version.xml.jaxb-impl4>4.0.5</version.xml.jaxb-impl4>
@@ -119,10 +119,19 @@
     <camunda.osgi.include.resource>{maven-resources}</camunda.osgi.include.resource>
     <camunda.osgi.embed />
     <plugin.version.maven-bundle>5.1.9</plugin.version.maven-bundle> <!-- compatible with JDK 17 -->
+    <plugin.version.maven-shade>3.6.1</plugin.version.maven-shade>
   </properties>
 
   <dependencyManagement>
     <dependencies>
+
+      <dependency>
+        <groupId>tools.jackson</groupId>
+        <artifactId>jackson-bom</artifactId>
+        <version>${version.jackson}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
 
       <dependency>
         <groupId>org.camunda.bpm</groupId>
@@ -148,7 +157,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.22.2</version>
+          <version>3.5.6</version>
           <configuration>
             <runOrder>hourly</runOrder>
             <systemPropertyVariables>
@@ -195,6 +204,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-shade-plugin</artifactId>
+          <version>${plugin.version.maven-shade}</version>
           <configuration>
             <createSourcesJar>true</createSourcesJar>
           </configuration>
@@ -346,6 +356,46 @@
           </plugin>
         </plugins>
       </build>
+    </profile>
+
+    <profile>
+      <id>spring-preview-repositories</id>
+      <repositories>
+        <repository>
+          <id>spring-milestones</id>
+          <name>Spring Milestones</name>
+          <url>https://repo.spring.io/milestone</url>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </repository>
+        <repository>
+          <id>spring-snapshots</id>
+          <name>Spring Snapshots</name>
+          <url>https://repo.spring.io/snapshot</url>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>spring-milestones</id>
+          <name>Spring Milestones</name>
+          <url>https://repo.spring.io/milestone</url>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+          <id>spring-snapshots</id>
+          <name>Spring Snapshots</name>
+          <url>https://repo.spring.io/snapshot</url>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+        </pluginRepository>
+      </pluginRepositories>
     </profile>
   </profiles>
 

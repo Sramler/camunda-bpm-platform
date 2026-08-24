@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.camunda.bpm.run</groupId>
     <artifactId>camunda-bpm-run-qa</artifactId>
-    <version>7.24.0-tiny-sb4-01</version>
+    <version>7.24.0-tiny-sb4-jackson3-01</version>
     <relativePath>..</relativePath>
   </parent>
 
@@ -92,7 +92,7 @@
     </dependency>
 
     <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
+      <groupId>tools.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <scope>test</scope>
     </dependency>

@@ -12,7 +12,7 @@
   <parent>
     <groupId>org.camunda.bpm.qa</groupId>
     <artifactId>camunda-qa</artifactId>
-    <version>7.24.0-tiny-sb4-01</version>
+    <version>7.24.0-tiny-sb4-jackson3-01</version>
   </parent>
 
   <properties>
@@ -65,7 +65,7 @@
       </dependency>
 
       <dependency>
-        <groupId>com.fasterxml.jackson</groupId>
+        <groupId>tools.jackson</groupId>
         <artifactId>jackson-bom</artifactId>
         <version>${version.jackson}</version>
         <scope>import</scope>
@@ -227,7 +227,7 @@
     </dependency>
 
     <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <groupId>tools.jackson.datatype</groupId>
       <artifactId>jackson-datatype-joda</artifactId>
     </dependency>
 

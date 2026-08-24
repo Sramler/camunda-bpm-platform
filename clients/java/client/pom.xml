@@ -14,7 +14,7 @@
   <parent>
     <groupId>org.camunda.bpm</groupId>
     <artifactId>camunda-external-task-client-root</artifactId>
-    <version>7.24.0-tiny-sb4-01</version>
+    <version>7.24.0-tiny-sb4-jackson3-01</version>
   </parent>
 
   <properties>
@@ -42,7 +42,7 @@
         <type>pom</type>
       </dependency>
       <dependency>
-        <groupId>com.fasterxml.jackson</groupId>
+        <groupId>tools.jackson</groupId>
         <artifactId>jackson-bom</artifactId>
         <version>${version.jackson}</version>
         <scope>import</scope>
@@ -71,7 +71,7 @@
     </dependency>
 
     <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
+      <groupId>tools.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
     </dependency>
 

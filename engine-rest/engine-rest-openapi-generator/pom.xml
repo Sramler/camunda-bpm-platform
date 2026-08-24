@@ -12,11 +12,11 @@
     <groupId>org.camunda.bpm</groupId>
     <artifactId>camunda-engine-rest-root</artifactId>
     <relativePath>../</relativePath>
-    <version>7.24.0-tiny-sb4-01</version>
+    <version>7.24.0-tiny-sb4-jackson3-01</version>
   </parent>
 
   <properties>
-    <version.json-schema-validator>1.0.76</version.json-schema-validator>
+    <version.json-schema-validator>3.0.0</version.json-schema-validator>
   </properties>
 
   <dependencies>

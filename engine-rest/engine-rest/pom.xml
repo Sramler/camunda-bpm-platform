@@ -12,7 +12,7 @@
     <groupId>org.camunda.bpm</groupId>
     <artifactId>camunda-engine-rest-root</artifactId>
     <relativePath>../</relativePath>
-    <version>7.24.0-tiny-sb4-01</version>
+    <version>7.24.0-tiny-sb4-jackson3-01</version>
   </parent>
 
   <properties>
@@ -40,7 +40,7 @@
     </dependency>
 
     <dependency>
-      <groupId>com.fasterxml.jackson.jaxrs</groupId>
+      <groupId>tools.jackson.jaxrs</groupId>
       <artifactId>jackson-jaxrs-json-provider</artifactId>
       <!--
       * Since version 2.10.0 this dependency comes with transitive Jakarta dependencies
@@ -59,13 +59,8 @@
     </dependency>
 
     <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
+      <groupId>tools.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
-      <artifactId>jackson-datatype-jsr310</artifactId>
     </dependency>
 
     <!-- provided deps -->
