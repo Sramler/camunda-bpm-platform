@@ -40,12 +40,12 @@ jobs:
             exit 1
           fi
 
-      - name: Preinstall spin/core test-jar for fixed-version publish
+      - name: Preinstall required test-jars for fixed-version publish
         shell: bash
         run: |
           set -euo pipefail
           mvn -B \
-            -pl spin/core \
+            -pl engine,spin/core \
             -am \
             -DskipTests \
             -DskipITs \
